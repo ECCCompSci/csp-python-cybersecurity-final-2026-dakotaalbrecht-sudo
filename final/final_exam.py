@@ -2,8 +2,8 @@
 ╔══════════════════════════════════════════════════════════════╗
 ║        CSP Python & Cybersecurity Final Exam - 2026          ║
 ║                                                              ║
-║  Name:  _______________________________________________      ║
-║  Date:  _______________________________________________      ║
+║  Name:  John Doe     ║
+║  Date:  you have a calculator      ║
 ╚══════════════════════════════════════════════════════════════╝
 
 GITHUB CLASSROOM INSTRUCTIONS:
@@ -75,6 +75,10 @@ print("\n--- Section 1: Python Basics ---")
 # Then print: "Hi, I'm [name], a grade [grade] student who loves [topic]!"
 
 # YOUR CODE HERE
+student_name = "dakota"
+student_grade = 11
+favorite_topic = "lunch"
+print("hi im", student_name, "a grade", student_grade, "student who loves", favorite_topic)
 
 
 # ── 1B. Grade Calculator [16 pts] ────────────────────────
@@ -84,6 +88,16 @@ print("\n--- Section 1: Python Basics ---")
 
 def letter_grade(score):
     # YOUR CODE HERE
+    if score >= 90:
+        return "A"
+    elif score >= 80:
+        return "B"
+    elif score >= 70:
+        return "C"
+    elif score >= 60:
+        return "D"
+    else:
+        return "F"
     pass
 
 # Test your function (do not change these lines)
@@ -94,17 +108,17 @@ for s in test_scores:
 
 # ── 1C. List Operations [14 pts] ─────────────────────────
 # Given this list of cybersecurity threats:
-threats = ["phishing", "malware", "ransomware", "spyware", "DDoS"]
-
+threats = ["PHISHING", "MALWARE", "RANSOMWARE", "SPYWARE", "DDOS"]
 # 1. Add "brute force" to the end of the list
 # YOUR CODE HERE
-
+threats.append("BRUTE FORCE")
 # 2. Print the total number of threats
 # YOUR CODE HERE
-
+print(len(threats))
 # 3. Print each threat in ALL CAPS using a loop
 # YOUR CODE HERE
-
+for x in threats:
+    print(threats)
 
 # ════════════════════════════════════════════════════════════
 # SECTION 2 — File I/O                              [40 pts]
@@ -122,12 +136,18 @@ print("\n--- Section 2: File I/O ---")
 #   VPN: A tool that encrypts your internet connection.
 
 # YOUR CODE HERE
-
-
+with open('final\cyber_glossary.txt', 'r') as cgt:
+    content = cgt.read()
+    print(content)
+    pass
 # ── 2B. Read and Search the File [20 pts] ────────────────
 # Open "cyber_glossary.txt" and:
 #   1. Print the total number of lines in the file
 #   2. Search for the term "Encryption" and print that line
+with open('final\cyber_glossary.txt', 'r') as cgt:
+
+    pass
+
 
 # YOUR CODE HERE
 
@@ -148,6 +168,14 @@ print("\n--- Section 3: Caesar Cipher ---")
 
 def encrypt_message(text, shift):
     # YOUR CODE HERE
+    result = ""
+    for char in text:
+        if char.isalpha():
+            base = ord('A') if char.isupper() else ord('a')
+            result += chr((ord(char) - base + shift) % 26 + base)
+        else:
+            result += char
+    return result
     pass
 
 
@@ -159,6 +187,7 @@ def encrypt_message(text, shift):
 
 def decrypt_message(text, shift):
     # YOUR CODE HERE
+    return encrypt_message(text, -shift)
     pass
 
 
@@ -198,6 +227,21 @@ print("\n--- Section 4: Password Strength Checker ---")
 
 def is_strong_password(password):
     # YOUR CODE HERE
+    has_upper   = any(c.isupper() for c in password)
+    has_digit   = any(c.isdigit() for c in password)
+    has_special = any(c in "!@#$%^&*" for c in password)
+    long_enough = len(password) >= 8
+
+    if not long_enough:
+        return "Weak - needs at least 8 characters"
+    if not has_upper:
+        return "Weak - needs an uppercase letter"
+    if not has_digit:
+        return "Weak - needs a number"
+    if not has_special:
+        return "Weak - needs a special character (!@#$%^&*)"
+    return "Strong"
+
     pass
 
 
@@ -210,13 +254,8 @@ test_passwords = [
     "MyStr0ng!PW",
 ]
 
-for pw in test_passwords:
-    result = is_strong_password(pw)
-    status = "STRONG ✅" if result["strong"] else "WEAK ❌"
-    print(f"  '{pw}' -> {status}")
-    if result["feedback"]:
-        for tip in result["feedback"]:
-            print(f"      - {tip}")
+for p in test_passwords:
+    print(f"  '{p}' -> {is_strong_password(p)}")
 
 
 # ════════════════════════════════════════════════════════════
