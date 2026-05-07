@@ -278,7 +278,17 @@ print("\n--- Section 5: File System & Log Analysis ---")
 #   Date: April 2026
 
 # YOUR CODE HERE
+print("\n=== File System Explorer ===")
+cwd = os.getcwd()
+print(f"  Current directory: {cwd}")
+print("  Contents:")
 
+try:
+    for item in os.listdir("."):
+        kind = "FILE  " if os.path.isfile(item) else "FOLDER"
+        print(f"    [{kind}] {item}")
+except Exception as e:
+    print(f"  Error reading directory: {e}")
 
 # ── 5B. Log File Analysis [20 pts] ───────────────────────
 # A security log is provided below as a list of strings.
@@ -300,6 +310,14 @@ security_log = [
 ]
 
 # YOUR CODE HERE
+print("\n=== Log File Analyzer ===")
+print("Suspicious entries found:")
+count = 0
+for entry in security_log:
+    if "FAILED" in entry or "ERROR" in entry:
+        print(f"  ⚠️  {entry}")
+        count += 1
+print(f"Total suspicious entries: {count}")
 
 
 # ════════════════════════════════════════════════════════════
